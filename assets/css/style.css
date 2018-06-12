@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: aquamarine;
+}
+
+.jumbotron {
+    /* height: 75px; */
+    text-align: center;
+    background-color: mediumseagreen;
+}
+
+.title {
+    font-size: 50px;
+    margin: -35px 0;
+}
+
+.playerTurn {
+    border: 2px solid blue;
+    width: 250px;
+    height: 270px;
+    /* display: inline-grid; */
+    /* align-content: space-around; */
+    margin: 10px auto;
+    text-align: center;
+}
+
+.playerText {
+    text-align: center;
+}
+
+.playerTextName {
+    font-size: 30px;
+}
+
+.playerTurnTextObject {
+    font-size: 20px;
+    /* display: inherit; */
+}
+
+.playerTurnTextWinLoss {
+    font-size: 16px;
+}
+
+.plainBorder {
+    border: 2px solid black;
+    width: 250px;
+    height: 270px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.playerTurnImgObject {
+    width: 40px;
+    margin: 20px;
+}
+
+.entryDiv {
+    width: 300px;
+    margin: auto;
+}
+
+.nameBox {
+    margin: 0 24px;
+}
+
+.rowCustom {
+    margin: 20px 0;
+}
+
+.waitWinsLosses {
+    margin: 194px auto 0 auto;
+    width: 100px;
+}
+
+.chatWindow {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.chatTextArea {
+    width: 100%;
+    height: 200px;
+}
+
+.chatMessage {
+    width: 540px;;
+} 
+
+.chatSend {
+    margin: 0 0 0 8px;
+}
