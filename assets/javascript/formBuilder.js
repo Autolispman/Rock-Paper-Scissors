@@ -122,7 +122,7 @@ function buildPlayerTurn(playerName) {
 function buildPlayerTurnNoObj(playerName) {
     let player = $("<div>");
     let nameRow = $("<div>");
-    let name = $("<span>");   
+    let name = $("<span>");
     let winsLossesRow = $("<div>");
     let winsLosses = buildWinsLosses();
     player.addClass("playerTurn");
@@ -231,8 +231,8 @@ function buildInfoMessagePlayer1(playerName) {
     let infoMesSpanId = $("#playerId");
     //messageCenter.remove(entryContainer);
     entryContainer.remove();
-    infoMessageDiv.attr("display", "visible");    
-    infoMesSpan.text("Hi " + playerName + "! Your are Player 1");    
+    infoMessageDiv.attr("display", "visible");
+    infoMesSpan.text("Hi " + playerName + "! Your are Player 1");
     infoMesSpanId.attr("playerNo", "1");
 }
 
@@ -244,9 +244,22 @@ function buildInfoMessagePlayer2(playerName) {
     let infoMesSpanId = $("#playerId");
     //messageCenter.remove(entryContainer);
     entryContainer.remove();
-    infoMessageDiv.attr("display", "visible");    
+    infoMessageDiv.attr("display", "visible");
     infoMesSpan.text("Hi " + playerName + "! Your are Player 2");
     infoMesSpanId.attr("playerNo", "2");
+}
+
+function buildWinner(winner) {
+    let player = $("<div>");    
+    let winnerBig = $("<span>");
+    let winnerBigRow = $("<div>");   
+    player.addClass("plainBorder");
+    winnerBig.attr("id", "winnerBig");
+    winnerBig.text(winner);
+    winnerBigRow.addClass("choiceBig");
+    winnerBigRow.append(winnerBig);    
+    player.append(winnerBigRow);
+    return player;
 }
 
 let container = $("#gameContainer");

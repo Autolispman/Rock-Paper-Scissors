@@ -61,6 +61,7 @@ firebase.database().ref().on("value", function (snapshot) {
         game = snapshot.val();
         let playerNo = $("#playerId").attr("playerNo");
         if (game.players.one.name !== "" && game.players.two.name === "" && game.players.turn === "") {
+            console.log(1);
             if (playerNo === "1") {
                 makePlayer1WaitNoMessage(game.players.one.name, game.players.two.name);
             }
@@ -69,19 +70,21 @@ firebase.database().ref().on("value", function (snapshot) {
             }
             return;
         }
-        if (game.players.one.name !== "" && game.players.two.name !== "" && game.players.turn === "1" && game.players.one.choice === "" && game.players.one.choice === "") {
+        if (game.players.one.name !== "" && game.players.two.name !== "" && game.players.turn === "1" && game.players.one.choice === "" && game.players.two.choice === "") {
+            console.log(2);
             if (playerNo === "1") {
                 makePlayer2Wait(game.players.one.name, game.players.two.name);
                 makePlayer1Turn(game.players.one.name);
             }
             else {
                 makePlayer1TurnNoObj(game.players.one.name);
-                makePlayer1ChoiceBig(game.players.one.name, game.players.two.name, game.players.two.choice)
+                makePlayer2Wait(game.players.one.name, game.players.two.name);
             }
             return;
         }
         
         if (game.players.one.name !== "" && game.players.two.name !== "" && game.players.turn === "2" && game.players.one.choice !== "" && game.players.two.choice === "") {
+            console.log(3);
             if (playerNo === "1") {
                 makePlayer1ChoiceBig(game.players.one.name, game.players.two.name, game.players.one.choice)
                 makePlayer2TurnNoObj(game.players.two.name);
@@ -89,6 +92,20 @@ firebase.database().ref().on("value", function (snapshot) {
             else {
                 makePlayer1Wait(game.players.one.name, game.players.two.name);
                 makePlayer2Turn(game.players.two.name);
+            }
+            return;
+        }
+
+        if (game.players.one.name !== "" && game.players.two.name !== "" && game.players.turn === "1" && game.players.one.choice !== "" && game.players.two.choice !== "") {
+            console.log(4);
+            if (playerNo === "1") {
+                makePlayer2ChoiceBig(game.players.one.name, game.players.two.name, game.players.two.choice)
+                showWinner();
+            }
+            else {
+                makePlayer1ChoiceBig(game.players.one.name, game.players.two.name, game.players.one.choice)
+                makePlayer2ChoiceBig(game.players.one.name, game.players.two.name, game.players.two.choice)
+                showWinner();
             }
             return;
         }

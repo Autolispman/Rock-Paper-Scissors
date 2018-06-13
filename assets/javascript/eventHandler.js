@@ -29,8 +29,7 @@ $(document).on("click", ".playerTurnImgObject", function (event) {
         game.players.turn = "2";
         sendGameToFireBase();
     }
-    else {  
-        game.players.one.choice = "";      
+    else {    
         game.players.two.choice = choice;
         game.players.turn = "1";
         sendGameToFireBase();
