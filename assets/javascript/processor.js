@@ -72,7 +72,7 @@ function identifyPlayer1Or2() {
 }
 
 function showWinner() {
-    let winner = calculateWinner();    
+    let winner = calculateWinner();
     let winnerContainer = $("#outComeColumn");
     let winnerHtml = buildWinner(winner);
     winnerContainer.html(winnerHtml);
@@ -114,6 +114,12 @@ function calculateWinner() {
     }
 }
 
-function processPlayer1Choice(choice) {
-
+function updatePlayer1Messages() {
+   let chatterBoxText = $("#chatterBoxText");
+   chatterBoxText.text(game.players.one.messages);
 }
+
+function updatePlayer2Messages() {
+    let chatterBoxText = $("#chatterBoxText");
+    chatterBoxText.text(game.players.two.messages);
+ }

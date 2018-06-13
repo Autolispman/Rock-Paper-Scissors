@@ -16,17 +16,18 @@ let game = {
         one: {
             choice: "",
             losses: 0,
+            messages: "",
             name: "",
             wins: 0
         },
         two: {
             choice: "",
             losses: 0,
+            messages: "",
             name: "",
             wins: 0
         },
-        turn: "",
-        message: ""
+        turn: ""        
     }
 }
 
@@ -40,15 +41,6 @@ function endGame() {
     firebase.database().ref().child("players").remove();
 }
 
-function setPlayer(playerName) {
-    if (game.players.one.name === "") {
-        game.players.one.name = playerName;
-    }
-    else {
-        game.players.two.name = playerName;
-    }
-}
-
 firebase.database().ref().on("value", function (snapshot) {
     //console.log(snapshot.val());
     if (snapshot.val() === null) {
@@ -60,6 +52,12 @@ firebase.database().ref().on("value", function (snapshot) {
     else {
         game = snapshot.val();
         let playerNo = $("#playerId").attr("playerNo");
+        if(playerNo === "1") {
+            updatePlayer1Messages();
+        }
+        else {
+            updatePlayer2Messages();
+        }
         if (game.players.one.name !== "" && game.players.two.name === "" && game.players.turn === "") {
             console.log(1);
             if (playerNo === "1") {

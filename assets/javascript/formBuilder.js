@@ -199,6 +199,7 @@ function buildChat() {
     let inputMessage = $("<input>");
     let sendButton = $("<button>");
 
+    chatText.attr("id", "chatterBoxText")
     chatText.addClass("chatTextArea");
     inputMessage.addClass("chatMessage");
     sendButton.addClass("chatSend");
