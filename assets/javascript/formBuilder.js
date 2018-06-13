@@ -23,82 +23,6 @@ function buildPreGameElements(divContainer) {
     divContainer.append(entryInput).append(playerRow).append(chatWindow);
 }
 
-function setupPlayer1(playerName) {
-    $("#messageCenter").html(buildInfoMessagePlayer1(playerName));
-    //$("#player1Column").html(buildPlayerWait(playerName));
-    //addTurnIndicator();
-}
-
-function setupPlayer2(playerName) {
-    $("#messageCenter").html(buildInfoMessagePlayer2(playerName));
-    //$("#player2Column").html(buildPlayerWait(playerName));
-    //addTurnIndicator();
-}
-
-// function addTurnIndicator() {
-//     let turnMessageDiv = $("<div>");
-//     let turnMessageSpan = $("<span>");
-//     turnMessageSpan.attr("id", "turnMessage");
-//     turnMessageDiv.addClass("entryDiv playerText playerTextName");
-//     turnMessageDiv.append(turnMessageSpan);
-//     $("#messageCenter").append(turnMessageDiv);
-// }
-
-function makePlayer1Turn(playerName) {
-    let containerPlayer1 = $("#player1Column");
-    let player1Turn = buildPlayerTurn(playerName);
-    $("#turnMessage").text("It's your turn!");
-    containerPlayer1.html(player1Turn);    
-}
-
-function makePlayer1Wait(player1Name, player2Name) {
-    let containerPlayer1 = $("#player1Column");
-    let player1Wait = buildPlayerWait(player1Name);    
-    $("#turnMessage").text("Waiting on " + player2Name);
-    containerPlayer1.html(player1Wait);    
-}
-
-function makePlayer1WaitNoMessage(player1Name, player2Name) {
-    let containerPlayer1 = $("#player1Column");
-    let player1Wait = buildPlayerWait(player1Name);    
-    containerPlayer1.html(player1Wait);    
-}
-
-function makePlayer2Turn(playerName) {
-    let containerPlayer2 = $("#player2Column");
-    let player2Turn = buildPlayerTurn(playerName);
-    $("#turnMessage").text("It's your turn!");
-    containerPlayer2.html(player2Wait);
-}
-
-function makePlayer2Wait(player1Name, player2Name) {
-    let containerPlayer2 = $("#player2Column");
-    let player2Wait = buildPlayerWait (player2Name);
-    $("#turnMessage").text("Waiting on " + player1Name);
-    containerPlayer2.html(player2Wait);
-}
-
-// function buildTurnElements(divContainer) {
-//     let entryInput = buildNameEntryBlock();
-//     let playerRow = $("<div>");
-//     let player1Col = $("<div>");
-//     let player1Div = buildPlayerTurn("Dan");
-//     let outComeCol = $("<div>");
-//     let outComeInfo = buildOutComeEmpty();
-//     let player2Col = $("<div>");
-//     let player2Div = buildPlayerWait("George");
-//     let chatWindow = buildChat();
-//     playerRow.addClass("row rowCustom");
-//     player1Col.addClass("col-lg-4 col-md-4 col-sm-12 col-xs-12")
-//     player1Col.append(player1Div);
-//     outComeCol.addClass("col-lg-4 col-md-4 col-sm-12 col-xs-12");
-//     outComeCol.append(outComeInfo);
-//     player2Col.addClass("col-lg-4 col-md-4 col-sm-12 col-xs-12");
-//     player2Col.append(player2Div);
-//     playerRow.append(player1Col).append(outComeCol).append(player2Col);
-//     divContainer.append(entryInput).append(playerRow).append(chatWindow);
-// }
-
 function buildNameEntryBlock() {
     let entryRowDiv = $("<div>");
     let entryDiv = $("<div>");
@@ -133,11 +57,6 @@ function buildNameEntryBlock() {
     entryRowDiv.append(entryDiv);
 
     return entryRowDiv;
-
-    
-    
-
-
 }
 
 function buildWaitForPlayer(playerNo) {
@@ -170,30 +89,50 @@ function buildPlayerTurn(playerName) {
     name.addClass("playerText playerTextName");
     nameRow.append(name);
 
-    rockImg.attr("src", "assets/images/rock.png").attr("href", "#");
+    rockImg.attr("src", "assets/images/rock.png").attr("value", "Rock");
     rockImg.addClass("playerTurnImgObject")
     rockSpan.text("Rock");
     rock.addClass("playerText playerTurnTextObject");
+    rock.attr("href", "#");
     rock.append(rockImg).append(rockSpan);
     rockRow.append(rock);
 
-    paperImg.attr("src", "assets/images/paper.jpg").attr("href", "#");
+    paperImg.attr("src", "assets/images/paper.jpg").attr("value", "Paper");
     paperImg.addClass("playerTurnImgObject")
     paperSpan.text("Paper");
     paper.addClass("playerText playerTurnTextObject");
+    paper.attr("href", "#");
     paper.append(paperImg).append(paperSpan);
     paperRow.append(paper);
 
-    scissorsImg.attr("src", "assets/images/scissors.jpg").attr("href", "#");
+    scissorsImg.attr("src", "assets/images/scissors.jpg").attr("value", "Scissors");
     scissorsImg.addClass("playerTurnImgObject");
     scissorsSpan.text("Scissors");
     scissors.addClass("playerText playerTurnTextObject");
+    scissors.attr("href", "#")
     scissors.append(scissorsImg).append(scissorsSpan);
     scissorsRow.append(scissors);
 
     winsLosses.addClass("playerText playerTurnTextWinLoss");
     winsLossesRow.append(winsLosses);
     player.append(nameRow).append(rockRow).append(paperRow).append(scissorsRow).append(winsLossesRow);
+    return player;
+}
+
+function buildPlayerTurnNoObj(playerName) {
+    let player = $("<div>");
+    let nameRow = $("<div>");
+    let name = $("<span>");   
+    let winsLossesRow = $("<div>");
+    let winsLosses = buildWinsLosses();
+    player.addClass("playerTurn");
+    name.text(playerName);
+    name.addClass("playerText playerTextName");
+    nameRow.append(name);
+    winsLosses.addClass("playerText");
+    winsLossesRow.addClass("waitWinsLosses");
+    winsLossesRow.append(winsLosses);
+    player.append(nameRow).append(winsLossesRow);
     return player;
 }
 
@@ -216,6 +155,27 @@ function buildPlayerWait(playerName) {
     winsLossesRow.addClass("waitWinsLosses");
     winsLossesRow.append(winsLosses);
     player.append(nameRow).append(winsLossesRow);
+    return player;
+}
+
+function buildPlayerWaitBig(playerName, choice) {
+    let player = $("<div>");
+    let nameRow = $("<div>");
+    let name = $("<span>");
+    let choiceBig = $("<span>");
+    let choiceBigRow = $("<div>");
+    let winsLossesRow = $("<div>");
+    let winsLosses = buildWinsLosses(playerName);
+    player.addClass("plainBorder");
+    name.text(playerName);
+    name.addClass("playerText playerTextName");
+    nameRow.append(name);
+    choiceBig.text(choice);
+    choiceBigRow.addClass("choiceBig");
+    choiceBigRow.append(choiceBig);
+    winsLossesRow.addClass("waitWinsLossesChoiceBig");
+    winsLossesRow.append(winsLosses);
+    player.append(nameRow).append(choiceBigRow).append(winsLossesRow);
     return player;
 }
 
@@ -272,7 +232,7 @@ function buildInfoMessagePlayer1(playerName) {
     //messageCenter.remove(entryContainer);
     entryContainer.remove();
     infoMessageDiv.attr("display", "visible");    
-    infoMesSpan.text("Hi " + playerName + "! Your are player 1");    
+    infoMesSpan.text("Hi " + playerName + "! Your are Player 1");    
     infoMesSpanId.attr("playerNo", "1");
 }
 
@@ -285,7 +245,7 @@ function buildInfoMessagePlayer2(playerName) {
     //messageCenter.remove(entryContainer);
     entryContainer.remove();
     infoMessageDiv.attr("display", "visible");    
-    infoMesSpan.text("Hi " + playerName + "! Your are player 2");
+    infoMesSpan.text("Hi " + playerName + "! Your are Player 2");
     infoMesSpanId.attr("playerNo", "2");
 }
 
