@@ -1,16 +1,8 @@
 $(document).ready(function () {
     $(document).on("click", "#startButton", function (event) {
         event.preventDefault();
-        var playerName = $("#nameBox").val();
-        if (game.players.one.name === "") {
-            game.players.one.name = playerName;
-            setupPlayer1(game.players.one.name);
-        }
-        else {
-            game.players.turn = "1";
-            game.players.two.name = playerName;
-            setupPlayer2(game.players.two.name);
-        }
+        let playerName = $("#nameBox").val().trim();
+        setupPlayer(playerName);
         sendGameToFireBase();
     });
 });

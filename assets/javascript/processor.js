@@ -1,3 +1,15 @@
+function setupPlayer(playerName) {    
+    if (game.players.one.name === "") {
+        game.players.one.name = playerName;
+        setupPlayer1(game.players.one.name);
+    }
+    else {
+        game.players.turn = "1";
+        game.players.two.name = playerName;
+        setupPlayer2(game.players.two.name);
+    }
+}
+
 function setupPlayer1(playerName) {
     $("#messageCenter").html(buildInfoMessagePlayer1(playerName));
 }
@@ -29,6 +41,7 @@ function makePlayer1Wait(player1Name, player2Name) {
 function makePlayer1WaitNoMessage(player1Name) {
     let containerPlayer1 = $("#player1Column");
     let player1Wait = buildPlayerWait(player1Name);
+    $("#turnMessage").text("");
     containerPlayer1.html(player1Wait);
 }
 
@@ -55,6 +68,7 @@ function makePlayer2Wait(player1Name, player2Name) {
 function makePlayer2WaitNoMessage(player2Name) {
     let containerPlayer2 = $("#player2Column");
     let player2Wait = buildPlayerWait(player2Name);
+    $("#turnMessage").text("");
     containerPlayer2.html(player2Wait);
 }
 
@@ -198,10 +212,14 @@ function updatePlayer2Messages() {
 
 function makeWaitForPlayer1() {
     let playerWait = buildWaitForPlayer("1")
-    $("#player2Column").html(playerWait);
+    $("#player1Column").html(playerWait);
 }
 
 function makeWaitForPlayer2() {
     let playerWait = buildWaitForPlayer("2")
     $("#player2Column").html(playerWait);
+}
+
+function determinePlayerNo() {
+
 }

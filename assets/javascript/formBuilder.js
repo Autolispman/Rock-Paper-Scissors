@@ -280,3 +280,4 @@ function buildWinner(winner) {
 
 let container = $("#gameContainer");
 buildPreGameElements(container);
+pullData();

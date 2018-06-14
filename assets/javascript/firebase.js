@@ -51,7 +51,14 @@ function endGame() {
 }
 
 firebase.database().ref().on("value", function (snapshot) {
-    //console.log(snapshot.val());
+    digestSnapshot(snapshot);
+},
+    function (error) {
+        alert("Firebase threw an error\r" + error);
+    })
+
+function digestSnapshot(snapshot) {
+    console.log(snapshot.val());
     if (snapshot.val() === null) {
         let container = $("#gameContainer");
         endGame();
@@ -76,13 +83,15 @@ firebase.database().ref().on("value", function (snapshot) {
                 makeWaitForPlayer2();
             }
             else {
-                makePlayer1WaitNoMessage(game.players.one.name, game.players.two.name);
-                makeWaitForPlayer1();
+                makePlayer1WaitNoMessage(game.players.one.name);
+                makeWaitForPlayer2();
             }
             return;
         }
         if (game.players.one.name !== "" && game.players.two.name !== "" && game.players.turn === "1" && game.players.one.choice === "" && game.players.two.choice === "") {
             console.log(2);
+            console.log(game.players.one.name);
+            console.log(game.players.two.name);
             if (playerNo === "1") {
                 makePlayer2Wait(game.players.one.name, game.players.two.name);
                 makePlayer1Turn(game.players.one.name);
@@ -123,16 +132,38 @@ firebase.database().ref().on("value", function (snapshot) {
 
         if (game.players.one.name === "" && game.players.two.name !== "" && game.players.turn === "" && game.players.one.choice === "" && game.players.two.choice === "") {
             console.log(5);
-            if (playerNo === "1") {
-                makePlayer2Wait(game.players.one.name, game.players.two.name);
+            if (playerNo === "?") {
+                makeWaitForPlayer1();
+                makePlayer2WaitNoMessage(game.players.two.name);
             }
             else {
-                makeWaitForPlayer1();
+                if (playerNo === "2") {
+                    makeWaitForPlayer1();
+                    makePlayer2WaitNoMessage(game.players.two.name);
+                }
             }
             return;
         }
-
-
+        if (game.players.one.name !== "" && game.players.two.name !== "" && game.players.turn === "" && game.players.one.choice === "" && game.players.two.choice === "") {
+            console.log(6);
+            if (playerNo === "1") {
+                makePlayer2WaitNoMessage(game.players.two.name);
+                makePlayer1Turn(game.players.one.name);
+            }
+            else {
+                if (playerNo === "2") {
+                    makePlayer1TurnNoObj(game.players.one.name);
+                    makePlayer2Wait(game.players.one.name, game.players.two.name);
+                }
+            }
+            return;
+        }
     }
-})
+}
+
+function pullData() {
+    firebase.database().ref().once('value').then(function (snapshot) {
+        digestSnapshot(snapshot);
+    });
+}
 
