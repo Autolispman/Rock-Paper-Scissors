@@ -26,7 +26,7 @@ function makePlayer1Wait(player1Name, player2Name) {
     containerPlayer1.html(player1Wait);
 }
 
-function makePlayer1WaitNoMessage(player1Name, player2Name) {
+function makePlayer1WaitNoMessage(player1Name) {
     let containerPlayer1 = $("#player1Column");
     let player1Wait = buildPlayerWait(player1Name);
     containerPlayer1.html(player1Wait);
@@ -49,6 +49,12 @@ function makePlayer2Wait(player1Name, player2Name) {
     let containerPlayer2 = $("#player2Column");
     let player2Wait = buildPlayerWait(player2Name);
     $("#turnMessage").text("Waiting for " + player1Name + " to choose");
+    containerPlayer2.html(player2Wait);
+}
+
+function makePlayer2WaitNoMessage(player2Name) {
+    let containerPlayer2 = $("#player2Column");
+    let player2Wait = buildPlayerWait(player2Name);
     containerPlayer2.html(player2Wait);
 }
 
@@ -96,30 +102,106 @@ function calculateWinner() {
         case 0:
             return "Tie Game";
         case 1:
+            player2WinsPlusPlus();
+            player1LossesPlusPlus();
             return game.players.two.name + " Wins";
         case 2:
+            player1WinsPlusPlus();
+            player2LossesPlusPlus();
             return game.players.one.name + " Wins";
         case 3:
+            player1WinsPlusPlus();
+            player2LossesPlusPlus();
             return game.players.one.name + " Wins";
         case 4:
             return "Tie Game";
         case 5:
+            player2WinsPlusPlus();
+            player1LossesPlusPlus();
             return game.players.two.name + " Wins";
         case 6:
+            player2WinsPlusPlus();
+            player1LossesPlusPlus();
             return game.players.two.name + " Wins";
         case 7:
+            player1WinsPlusPlus();
+            player2LossesPlusPlus();
             return game.players.one.name + " Wins";
         case 8:
             return "Tie Game";
     }
 }
 
+function player1WinsPlusPlus() {
+    game.players.one.wins = (parseInt(game.players.one.wins) + 1).toString();
+}
+
+function player1LossesPlusPlus() {
+    game.players.one.losses = (parseInt(game.players.one.losses) + 1).toString();
+}
+
+function player2WinsPlusPlus() {
+    game.players.two.wins = (parseInt(game.players.two.wins) + 1).toString();
+}
+
+function player2LossesPlusPlus() {
+    game.players.two.losses = (parseInt(game.players.two.losses) + 1).toString();
+}
+
 function updatePlayer1Messages() {
-   let chatterBoxText = $("#chatterBoxText");
-   chatterBoxText.text(game.players.one.messages);
+    let chatterBoxText = $("#chatterBoxTextId");
+    let messageArray = game.players.one.messages.split("\r");
+    chatterBoxText.empty();
+    for (let i = 0; i < messageArray.length; i++) {
+        if (messageArray[i] !== "") {
+            let p = $("<p>");
+            let mesSplit = messageArray[i].split(":");
+            if (mesSplit[0] === game.players.one.name) {
+                p.addClass("playerMessage1");
+                p.text(messageArray[i]);
+                chatterBoxText.append(p);
+            }
+            else {
+                p.addClass("playerMessage2");
+                p.text(messageArray[i]);
+                chatterBoxText.append(p);
+            }
+        }
+    }
+    document.getElementById("chatterBoxTextId").scrollTop = document.getElementById("chatterBoxTextId").scrollHeight;
+    //chatterBoxText.scrollTop = chatterBoxText.scrollHeight;
 }
 
 function updatePlayer2Messages() {
-    let chatterBoxText = $("#chatterBoxText");
-    chatterBoxText.text(game.players.two.messages);
- }
+    let chatterBoxText = $("#chatterBoxTextId");
+    let messageArray = game.players.two.messages.split("\r");
+    chatterBoxText.empty();
+    for (let i = 0; i < messageArray.length; i++) {
+        if (messageArray[i] !== "") {
+            let p = $("<p>");
+            let mesSplit = messageArray[i].split(":");
+            if (mesSplit[0] === game.players.two.name) {
+                p.addClass("playerMessage1");
+                p.text(messageArray[i]);
+                chatterBoxText.append(p);
+            }
+            else {
+                p.addClass("playerMessage2");
+                p.text(messageArray[i]);
+                chatterBoxText.append(p);
+            }
+        }
+    }
+    document.getElementById("chatterBoxTextId").scrollTop = document.getElementById("chatterBoxTextId").scrollHeight;
+    //chatterBoxText.scrollTop = chatterBoxText.scrollHeight;
+}
+
+function makeWaitForPlayer1() {
+    let playerWait = buildWaitForPlayer("1")
+    $("#player2Column").html(playerWait);
+}
+
+function makeWaitForPlayer2() {
+    let playerWait = buildWaitForPlayer("2")
+    $("#player2Column").html(playerWait);
+}

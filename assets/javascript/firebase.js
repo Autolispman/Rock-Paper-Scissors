@@ -15,19 +15,19 @@ let game = {
     players: {
         one: {
             choice: "",
-            losses: 0,
+            losses: "0",
             messages: "",
             name: "",
-            wins: 0
+            wins: "0"
         },
         two: {
             choice: "",
-            losses: 0,
+            losses: "0",
             messages: "",
             name: "",
-            wins: 0
+            wins: "0"
         },
-        turn: ""        
+        turn: ""
     }
 }
 
@@ -36,8 +36,17 @@ function sendGameToFireBase() {
 }
 
 function endGame() {
+    game.players.one.choice = "";
+    game.players.one.losses = "0";
+    game.players.one.messages = "";
     game.players.one.name = "";
+    game.players.one.wins = "0";
+    game.players.two.choice = "";
+    game.players.two.losses = "0";
+    game.players.two.messages = "";
     game.players.two.name = "";
+    game.players.two.wins = "0";
+    game.players.turn = "";
     firebase.database().ref().child("players").remove();
 }
 
@@ -52,19 +61,23 @@ firebase.database().ref().on("value", function (snapshot) {
     else {
         game = snapshot.val();
         let playerNo = $("#playerId").attr("playerNo");
-        if(playerNo === "1") {
+        if (playerNo === "1") {
             updatePlayer1Messages();
         }
         else {
-            updatePlayer2Messages();
+            if (playerNo === "2") {
+                updatePlayer2Messages();
+            }
         }
         if (game.players.one.name !== "" && game.players.two.name === "" && game.players.turn === "") {
             console.log(1);
             if (playerNo === "1") {
-                makePlayer1WaitNoMessage(game.players.one.name, game.players.two.name);
+                makePlayer1WaitNoMessage(game.players.one.name);
+                makeWaitForPlayer2();
             }
             else {
                 makePlayer1WaitNoMessage(game.players.one.name, game.players.two.name);
+                makeWaitForPlayer1();
             }
             return;
         }
@@ -80,7 +93,7 @@ firebase.database().ref().on("value", function (snapshot) {
             }
             return;
         }
-        
+
         if (game.players.one.name !== "" && game.players.two.name !== "" && game.players.turn === "2" && game.players.one.choice !== "" && game.players.two.choice === "") {
             console.log(3);
             if (playerNo === "1") {
@@ -107,7 +120,18 @@ firebase.database().ref().on("value", function (snapshot) {
             }
             return;
         }
-        
+
+        if (game.players.one.name === "" && game.players.two.name !== "" && game.players.turn === "" && game.players.one.choice === "" && game.players.two.choice === "") {
+            console.log(5);
+            if (playerNo === "1") {
+                makePlayer2Wait(game.players.one.name, game.players.two.name);
+            }
+            else {
+                makeWaitForPlayer1();
+            }
+            return;
+        }
+
 
     }
 })

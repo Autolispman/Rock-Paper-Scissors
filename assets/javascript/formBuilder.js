@@ -27,6 +27,7 @@ function buildNameEntryBlock() {
     let entryRowDiv = $("<div>");
     let entryDiv = $("<div>");
     let entryContainer = $("<div>")
+    let form = $("<form>");
     let nameBox = $("<input>");
     let startButton = $("<button>");
 
@@ -52,7 +53,8 @@ function buildNameEntryBlock() {
     turnMessageSpan.attr("id", "turnMessage");
     infoMesDiv.append(infoMesSpan).append(infoMesSpanId).append(turnMessageSpan);
 
-    entryContainer.append(nameBox).append(startButton);
+    form.append(nameBox).append(startButton);
+    entryContainer.append(form);
     entryDiv.append(entryContainer).append(infoMesDiv);
     entryRowDiv.append(entryDiv);
 
@@ -83,7 +85,7 @@ function buildPlayerTurn(playerName) {
     let scissorsImg = $("<img>");
     let scissorsSpan = $("<span>");
     let winsLossesRow = $("<div>");
-    let winsLosses = buildWinsLosses();
+    let winsLosses = buildWinsLosses(playerName);
     player.addClass("playerTurn");
     name.text(playerName);
     name.addClass("playerText playerTextName");
@@ -124,7 +126,7 @@ function buildPlayerTurnNoObj(playerName) {
     let nameRow = $("<div>");
     let name = $("<span>");
     let winsLossesRow = $("<div>");
-    let winsLosses = buildWinsLosses();
+    let winsLosses = buildWinsLosses(playerName);
     player.addClass("playerTurn");
     name.text(playerName);
     name.addClass("playerText playerTextName");
@@ -181,7 +183,12 @@ function buildPlayerWaitBig(playerName, choice) {
 
 function buildWinsLosses(playerName) {
     let winsLossesSpan = $("<span>");
-    winsLossesSpan.text("Wins: " + "" + "Losses: " + "");
+    if (game.players.one.name === playerName) {
+        winsLossesSpan.text("Wins: " + game.players.one.wins + " Losses: " + game.players.one.losses);
+    }
+    else {
+        winsLossesSpan.text("Wins: " + game.players.two.wins + " Losses: " + game.players.two.losses);
+    }
     return winsLossesSpan;
 }
 
@@ -191,29 +198,37 @@ function buildChat() {
     let chatDivContainer = $("<div>");
     let chatDivRowSub1 = $("<div>");
     let chatDivColSub1 = $("<div>");
-    let chatText = $("<textarea>");
+    //let chatText = $("<textarea>");
+    let chatDiv = $("<div>");
 
     let chatDivRowSub2 = $("<div>");
     let chatDivColSub2 = $("<div>");
 
+    let form = $("<form>");
     let inputMessage = $("<input>");
     let sendButton = $("<button>");
 
-    chatText.attr("id", "chatterBoxText")
-    chatText.addClass("chatTextArea");
+    //chatText.attr("id", "chatterBoxText").attr('readonly','readonly');
+    //chatText.addClass("chatTextArea");
+    chatDiv.attr("id", "chatterBoxTextId");
+    chatDiv.addClass("chatterBoxText");
+    inputMessage.attr("id", "chatMessageInput");
     inputMessage.addClass("chatMessage");
+    sendButton.attr("id", "chatSendButton");
     sendButton.addClass("chatSend");
 
     chatDivRow.addClass("row");
     chatDivCol1.addClass("col-12");
     chatDivRowSub1.addClass("row");
     chatDivColSub1.addClass("col-12");
-    chatDivColSub1.append(chatText);
+    //chatDivColSub1.append(chatText);
+    chatDivColSub1.append(chatDiv);
 
     chatDivRowSub2.addClass("row");
     chatDivColSub2.addClass("col-12");
     sendButton.text("Send");
-    chatDivColSub2.append(inputMessage).append(sendButton);
+    form.append(inputMessage).append(sendButton);
+    chatDivColSub2.append(form);
 
     chatDivContainer.addClass("chatWindow");
     chatDivRowSub1.append(chatDivColSub1);
@@ -251,14 +266,14 @@ function buildInfoMessagePlayer2(playerName) {
 }
 
 function buildWinner(winner) {
-    let player = $("<div>");    
+    let player = $("<div>");
     let winnerBig = $("<span>");
-    let winnerBigRow = $("<div>");   
+    let winnerBigRow = $("<div>");
     player.addClass("plainBorder");
     winnerBig.attr("id", "winnerBig");
     winnerBig.text(winner);
     winnerBigRow.addClass("choiceBig");
-    winnerBigRow.append(winnerBig);    
+    winnerBigRow.append(winnerBig);
     player.append(winnerBigRow);
     return player;
 }

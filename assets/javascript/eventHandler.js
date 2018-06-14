@@ -67,3 +67,23 @@ $(document).on("click", ".playerTurnImgObject", function (event) {
         sendGameToFireBase();
     }
 });
+
+$(document).on("click", "#chatSendButton", function (event) {
+    event.preventDefault();
+    let message = $("#chatMessageInput").val().trim();
+    let playerId = identifyPlayer1Or2();
+    if (message !== "") {
+        if (playerId === "1") {
+            game.players.one.messages = game.players.one.messages + game.players.one.name + ": " + message + "\r";
+            game.players.two.messages = game.players.two.messages + game.players.one.name + ": " + message + "\r";
+            sendGameToFireBase();
+        }
+        else {
+            game.players.one.messages = game.players.one.messages + game.players.two.name + ": " + message + "\r";
+            game.players.two.messages = game.players.two.messages + game.players.two.name + ": " + message + "\r";
+            sendGameToFireBase();
+        }
+    }
+    $("#chatMessageInput").val("")
+});
+

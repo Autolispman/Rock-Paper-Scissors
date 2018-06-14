@@ -58,7 +58,7 @@ body {
 }
 
 .entryDiv {
-    width: 300px;
+    width: 360px;
     margin: auto;
 }
 
@@ -72,12 +72,12 @@ body {
 
 .waitWinsLosses {
     margin: 194px auto 0 auto;
-    width: 100px;
+    width: 100%;
 }
 
 .waitWinsLossesChoiceBig {
     margin: 70px auto 0 auto;
-    width: 100px;
+    width: 100%;
 }
 
 .chatWindow {
@@ -101,4 +101,26 @@ body {
 .choiceBig {
     font-size: 60px;
     margin: 35px 0 0 0;
+}
+
+.chatterBoxText {
+    width: 100%;
+    height: 200px;
+    background-color: white;
+    margin: 10px 0;
+    overflow: auto;
+}
+
+.playerMessage1 {
+    color: darkorange;
+    font-size: 22px;
+    word-wrap: break-word;
+    margin-bottom: 0;
+}
+
+.playerMessage2 {
+    color: black;
+    font-size: 22px;
+    word-wrap: break-word;
+    margin-bottom: 0;
 }
