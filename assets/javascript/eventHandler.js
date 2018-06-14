@@ -60,6 +60,23 @@ $(document).on("click", ".playerTurnImgObject", function (event) {
     }
 });
 
+$(document).on("click", ".playerTurnSpanObject", function (event) {
+    event.preventDefault();
+    let choice = $(this).attr("value");
+    let playerId = identifyPlayer1Or2();
+    if (playerId === "1") {
+        game.players.one.choice = choice;
+        game.players.two.choice = "";
+        game.players.turn = "2";
+        sendGameToFireBase();
+    }
+    else {
+        game.players.two.choice = choice;
+        game.players.turn = "1";
+        sendGameToFireBase();
+    }
+});
+
 $(document).on("click", "#chatSendButton", function (event) {
     event.preventDefault();
     let message = $("#chatMessageInput").val().trim();

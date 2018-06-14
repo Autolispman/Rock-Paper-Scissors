@@ -57,6 +57,10 @@ body {
     margin: 20px;
 }
 
+.playerTurnSpanObject {
+    font-size: 18px;
+}
+
 .entryDiv {
     width: 360px;
     margin: auto;

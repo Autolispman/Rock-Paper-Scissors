@@ -92,7 +92,9 @@ function buildPlayerTurn(playerName) {
     nameRow.append(name);
 
     rockImg.attr("src", "assets/images/rock.png").attr("value", "Rock");
-    rockImg.addClass("playerTurnImgObject")
+    rockImg.addClass("playerTurnImgObject");
+    rockSpan.attr("value", "Rock");
+    rockSpan.addClass("playerTurnSpanObject");
     rockSpan.text("Rock");
     rock.addClass("playerText playerTurnTextObject");
     rock.attr("href", "#");
@@ -101,6 +103,8 @@ function buildPlayerTurn(playerName) {
 
     paperImg.attr("src", "assets/images/paper.jpg").attr("value", "Paper");
     paperImg.addClass("playerTurnImgObject")
+    paperSpan.attr("value", "Paper");
+    paperSpan.addClass("playerTurnSpanObject");
     paperSpan.text("Paper");
     paper.addClass("playerText playerTurnTextObject");
     paper.attr("href", "#");
@@ -109,6 +113,8 @@ function buildPlayerTurn(playerName) {
 
     scissorsImg.attr("src", "assets/images/scissors.jpg").attr("value", "Scissors");
     scissorsImg.addClass("playerTurnImgObject");
+    scissorsSpan.attr("value", "Scissors");
+    scissorsSpan.addClass("playerTurnSpanObject");
     scissorsSpan.text("Scissors");
     scissors.addClass("playerText playerTurnTextObject");
     scissors.attr("href", "#")
