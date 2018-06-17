@@ -158,6 +158,9 @@ function digestSnapshot(snapshot) {
             }
             return;
         }
+        if (snapshot.val() === null) {
+            endGame();
+        }
     }
 }
 
